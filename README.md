@@ -1,15 +1,8 @@
-# Get New Recommendations
+# Getting Started
 
-Returns 25 song recommendations based on the user's music attribute vector. 
- - 10 songs are completely attribute-based and do not account for genre
- - 10 songs use both attributes and the user's favorite genres
- - 5 songs use both attributes and the user's favorite artists
+# Model and Engine
 
-Returns top 25 songs in the United States if there is no logged-in user or if the user has not yet created a post. 
-
-[link to source code](https://github.com/yibopi/ve441template/edit/main/README.md)
-
-Endpoint: `GET /recommendations/`
+# APIs and Controller
 
 **Request Parameters**
 | Key        | Location | Type   | Description      |
@@ -72,81 +65,6 @@ curl -b cookies.txt -c cookies.txt -X GET https://OUR_SERVER/recommendations/'
 }
 ~~~
 
-## Users API
+# View UI/UX
 
-![Signup](https://eecs441.eecs.umich.edu/img/template/Signup.png)
-
-These endpoints update and retrieve data from the Users collection in our database. The Users API handles:
-
-* account creation [(link to code)](https://github.com/UM-EECS-441/musicsharingnetwork/blob/e6d037f68f07b927f444d800e479d03fe982a5c0/backend/routes/users.py#L15)
-* account updates [(link to code)](https://github.com/UM-EECS-441/musicsharingnetwork/blob/e6d037f68f07b927f444d800e479d03fe982a5c0/backend/routes/users.py#L66)
-* session authentication [(link to code)](https://github.com/UM-EECS-441/musicsharingnetwork/blob/e6d037f68f07b927f444d800e479d03fe982a5c0/backend/routes/users.py#L91)
-* user profile retrieval [(link to code)](https://github.com/UM-EECS-441/musicsharingnetwork/blob/e6d037f68f07b927f444d800e479d03fe982a5c0/backend/routes/users.py#L129)
-
-## Get Recommendations
-
-This endpoint runs our recommendation algorithm based on a user's profile. This section provides a high-level overview of our algorithm. For a detailed explanation of our algorithm, please see [here](https://github.com/UM-EECS-441/musicsharingnetwork/wiki/Recommendation-Algorithm).
-
-In order to run the algorithm, the server retrieves a user's attribute vector, genre vector, and artist vector from the database [(link to code)](https://github.com/UM-EECS-441/musicsharingnetwork/blob/e6d037f68f07b927f444d800e479d03fe982a5c0/backend/routes/recommendations.py#L64).
-
-* Attribute Vector - Vector that tracks a user's sentiment towards specific song attributes (the specific attributes are listed in [Spotify Audio Features](https://github.com/UM-EECS-441/musicsharingnetwork/wiki/Backend-Architecture#spotify-audio-features))
-* Genre Vector - Vector that tracks a user's sentiment towards specific genres
-* Artist Vector - Vector that tracks a user's sentiment towards specific artists
-
-The server then constructs a query vector that targets the song attributes that the user most prefers. This query vector is then used to call the [Spotify Recommendation Seed API](https://github.com/UM-EECS-441/musicsharingnetwork/wiki/Backend-Architecture#spotify-recommendation-seed) to search Spotify's library for songs that meet our desired characteristics. We query this API three times [(link to code)](https://github.com/UM-EECS-441/musicsharingnetwork/blob/e6d037f68f07b927f444d800e479d03fe982a5c0/backend/routes/recommendations.py#L11):
-
-* Using random genres as seeds
-* Using user's favorite genres as seeds
-* Using user's favorite artists as seeds
-
-The results of these queries are then returned to the frontend application to display as recommendations to the user. 
-
-## Spotify Recommendation Seed
-
-The Spotify Recommendation Seed API is how we search Spotify's library based on song attributes. The query takes in a list of target attributes (our query vector) as well as seeds to limit or expand the scope of the query. Additional documentation on this API can be found [here](https://developer.spotify.com/documentation/web-api/reference/browse/get-recommendations/).
-
-## Create Posts
-
-This endpoint is responsible for storing a new post in the database as well as classifying the sentiment of that post and updating the user's vectors accordingly. When a post is created, our [sentiment analysis model](https://github.com/UM-EECS-441/musicsharingnetwork/wiki/Backend-Architecture#sentiment-analysis-model) analyzes the content of the post and assigns it a sentiment score between -1 and 1 [(link to code)](https://github.com/UM-EECS-441/musicsharingnetwork/blob/e6d037f68f07b927f444d800e479d03fe982a5c0/backend/routes/posts.py#L34). We then use the [Spotify Audio Features API](https://github.com/UM-EECS-441/musicsharingnetwork/wiki/Backend-Architecture#spotify-audio-features) to get the attributes, genre, and artist of the song. We use this information along with the sentiment score to update the user's attribute vector, genre vector, and artist vector accordingly [(link to code)](https://github.com/UM-EECS-441/musicsharingnetwork/blob/e6d037f68f07b927f444d800e479d03fe982a5c0/backend/routes/posts.py#L145).
-
-## Get/View Posts
-
-This endpoint is used to display posts on a user's timeline or on a user's profile page. The server retrieves relevant posts from the database and returns them in chronological order for the user to view and interact with [(link to code)](https://github.com/UM-EECS-441/musicsharingnetwork/blob/e6d037f68f07b927f444d800e479d03fe982a5c0/backend/routes/posts.py#L58).
-
-## User-to-User Recommendations/Direct Messages API
-
-These endpoints update and retrieve data from the Messages collection in our database. The Messages API handles:
-
-* creating new conversations/sending messages [(link to code)](https://github.com/yibopi/ve441template/edit/main/README.md)
-* viewing list of existing conversations [(link to code)](https://github.com/yibopi/ve441template/edit/main/README.md)
-* viewing an entire conversation [(link to code)](https://github.com/yibopi/ve441template/edit/main/README.md)
-# Third-Party SDKs
-
-Our front end is written entirely in Swift and does not use any third-party SDKs. However, we do use [Spotify's Web API](https://developer.spotify.com/documentation/web-api/).
-
-## Spotify Web API
-
-We use [Spotify's Web API](https://developer.spotify.com/documentation/web-api/) on the front end for two purposes. One is to get information about a song, and the other is to search for songs.
-
-### Authorization
-
-Spotify requires us to obtain authorization before using the Web API. Since we do not interact with users' Spotify accounts, we follow the [Client Credentials Flow](https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow).
-
-Code:
-* [Obtain authorization](https://github.com/yibopi/ve441template/edit/main/README.md)
-
-### Song Information
-
-When a song is displayed in our app, we show the name of the song, the name of the song's artist, the title of the album containing the song, and the image (album cover) for that album. For this, we use Spotify's [Get a Track](https://developer.spotify.com/documentation/web-api/reference/tracks/get-track/) ednpoint.
-
-Code:
-* [Get a track](https://github.com/yibopi/ve441template/edit/main/README.md)
-* [Parse JSON response and load image for a single track](https://github.com/yibopi/ve441template/edit/main/README.md)
-
-### Song Search
-
-When a user wants to make a post in our app, they are prompted to select a song to include in the post. We use Spotify's [Search](https://developer.spotify.com/documentation/web-api/reference/search/search/) endpoint to let the user search for a song.
-
-Code:
-* [Search for a song](https://github.com/yibopi/ve441template/edit/main/README.md)
-* [Parse JSON response and load image for a single track](https://github.com/yibopi/ve441template/edit/main/README.md)
+# Team Roster
