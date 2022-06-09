@@ -117,9 +117,9 @@ This endpoint is used to display posts on a user's timeline or on a user's profi
 
 These endpoints update and retrieve data from the Messages collection in our database. The Messages API handles:
 
-* creating new conversations/sending messages [(link to code)](https://github.com/UM-EECS-441/musicsharingnetwork/blob/e6d037f68f07b927f444d800e479d03fe982a5c0/backend/routes/messages.py#L10)
-* viewing list of existing conversations [(link to code)](https://github.com/UM-EECS-441/musicsharingnetwork/blob/e6d037f68f07b927f444d800e479d03fe982a5c0/backend/routes/messages.py#L95)
-* viewing an entire conversation [(link to code)](https://github.com/UM-EECS-441/musicsharingnetwork/blob/e6d037f68f07b927f444d800e479d03fe982a5c0/backend/routes/messages.py#L69)
+* creating new conversations/sending messages [(link to code)](https://github.com/yibopi/ve441template/edit/main/README.md)
+* viewing list of existing conversations [(link to code)](https://github.com/yibopi/ve441template/edit/main/README.md)
+* viewing an entire conversation [(link to code)](https://github.com/yibopi/ve441template/edit/main/README.md)
 # Third-Party SDKs
 
 Our front end is written entirely in Swift and does not use any third-party SDKs. However, we do use [Spotify's Web API](https://developer.spotify.com/documentation/web-api/).
@@ -133,20 +133,20 @@ We use [Spotify's Web API](https://developer.spotify.com/documentation/web-api/)
 Spotify requires us to obtain authorization before using the Web API. Since we do not interact with users' Spotify accounts, we follow the [Client Credentials Flow](https://developer.spotify.com/documentation/general/guides/authorization-guide/#client-credentials-flow).
 
 Code:
-* [Obtain authorization](https://github.com/UM-EECS-441/musicsharingnetwork/blob/e6d037f68f07b927f444d800e479d03fe982a5c0/frontend/music-sharing-network/SpotifyWebAPI.swift#L38)
+* [Obtain authorization](https://github.com/yibopi/ve441template/edit/main/README.md)
 
 ### Song Information
 
 When a song is displayed in our app, we show the name of the song, the name of the song's artist, the title of the album containing the song, and the image (album cover) for that album. For this, we use Spotify's [Get a Track](https://developer.spotify.com/documentation/web-api/reference/tracks/get-track/) ednpoint.
 
 Code:
-* [Get a track](https://github.com/UM-EECS-441/musicsharingnetwork/blob/e6d037f68f07b927f444d800e479d03fe982a5c0/frontend/music-sharing-network/SpotifyWebAPI.swift#L137)
-* [Parse JSON response and load image for a single track](https://github.com/UM-EECS-441/musicsharingnetwork/blob/e6d037f68f07b927f444d800e479d03fe982a5c0/frontend/music-sharing-network/SpotifyWebAPI.swift#L92)
+* [Get a track](https://github.com/yibopi/ve441template/edit/main/README.md)
+* [Parse JSON response and load image for a single track](https://github.com/yibopi/ve441template/edit/main/README.md)
 
 ### Song Search
 
 When a user wants to make a post in our app, they are prompted to select a song to include in the post. We use Spotify's [Search](https://developer.spotify.com/documentation/web-api/reference/search/search/) endpoint to let the user search for a song.
 
 Code:
-* [Search for a song](https://github.com/UM-EECS-441/musicsharingnetwork/blob/e6d037f68f07b927f444d800e479d03fe982a5c0/frontend/music-sharing-network/SpotifyWebAPI.swift#L182)
-* [Parse JSON response and load image for a single track](https://github.com/UM-EECS-441/musicsharingnetwork/blob/e6d037f68f07b927f444d800e479d03fe982a5c0/frontend/music-sharing-network/SpotifyWebAPI.swift#L92)
+* [Search for a song](https://github.com/yibopi/ve441template/edit/main/README.md)
+* [Parse JSON response and load image for a single track](https://github.com/yibopi/ve441template/edit/main/README.md)
