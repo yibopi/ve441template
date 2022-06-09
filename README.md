@@ -7,7 +7,7 @@ Returns 25 song recommendations based on the user's music attribute vector.
 
 Returns top 25 songs in the United States if there is no logged-in user or if the user has not yet created a post. 
 
-[link to source code](https://github.com/UM-EECS-441/musicsharingnetwork/blob/2fc63963e4739eb09c3650e23561bf5b719711e0/backend/routes/recommendations.py#L11)
+[link to source code](https://github.com/yibopi/ve441template/edit/main/README.md)
 
 Endpoint: `GET /recommendations/`
 
